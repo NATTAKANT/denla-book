@@ -1,0 +1,115 @@
+.booknow-page {
+    position: relative;
+
+    &__header {
+        margin-bottom: 1rem;
+
+        &--title {
+            position: relative;
+            font-size: 1.75rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            padding-bottom: 0.75rem;
+            color: #000;
+        }
+    }
+}
+
+.card-custom--room {
+    &__img {
+        width: 100%;
+        height: 240px;
+        object-fit: cover;
+        border-radius: 4px;
+    }
+
+    &__content {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    &__title {
+        font-size: 1.5rem;
+        font-weight: 400;
+        color: #333;
+        letter-spacing: 1px;
+    }
+
+    &__price {
+        border-right: 1px solid #00000080;
+        border-left: 1px solid #00000080;
+
+        &--title {
+            background-color: rgba($color: #000000, $alpha: 0.1);
+            font-size: 1rem;
+            font-weight: 400;
+            padding: 0.4rem;
+        }
+
+        &--text {
+            padding: 0.874rem 0;
+            font-size: 1.125rem;
+            font-weight: 500;
+        }
+    }
+
+    &__deposit {
+        border-right: 1px solid #00000080;
+
+        &--title {
+            background-color: rgba($color: #000000, $alpha: 0.1);
+            font-size: 1rem;
+            font-weight: 400;
+            padding: 0.4rem;
+        }
+
+        &--text {
+            padding: 0.874rem 0;
+            font-size: 1.125rem;
+            font-weight: 500;
+        }
+    }
+
+    &__footer {
+        font-size: 0.874rem;
+        font-weight: 300;
+        color: #000;
+    }
+
+    @media (max-width: 575.98px) {
+        &__title {
+            font-size: 1.25rem;
+        }
+
+        &__price {
+            &--title {
+                font-size: 0.874rem;
+            }
+
+            &--text {
+                padding: 0.75rem 0;
+                font-size: 1rem;
+            }
+        }
+
+        &__deposit {
+            &--title {
+                font-size: 0.874rem;
+            }
+
+            &--text {
+                padding: 0.75rem 0;
+                font-size: 1rem;
+            }
+        }
+    }
+
+    // Medium devices (tablets, 768px and up)
+    @media (min-width: 768px) and (max-width: 991.98px) {
+        &__img {
+            height: 340px;
+        }
+    }
+}

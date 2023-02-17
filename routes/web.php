@@ -17,12 +17,20 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified'
-])->group(function () {
+// Route::view('/admin/index', 'admin.index')->name('index');
+
+Route::middleware(['auth:sanctum',config
+('jetstream.auth_session'),'verified'])->group(function () {
+
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+
+    Route::view('/admin/index', 'admin.index')->name('admin.index');
+
+
+    Route::view('/admin/booking/index', 'admin.booking.index')->name('admin.booking.index');
+
+
+
 });
