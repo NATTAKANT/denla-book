@@ -1,0 +1,74 @@
+[
+    {
+        "type": "header",
+        "version": "5.2.0",
+        "comment": "Export to JSON plugin for PHPMyAdmin"
+    },
+    {
+        "type": "database",
+        "name": "new_denla"
+    },
+    {
+        "type": "table",
+        "name": "collection_dm",
+        "database": "new_denla",
+        "data": [
+            {
+                "code": "1",
+                "description": "ห้องหนังสือทั่วไป 1",
+                "default_flg": "N",
+                "days_due_back": "21",
+                "daily_late_fee": "0.05"
+            },
+            {
+                "code": "8",
+                "description": "ห้องหนังสือเด็ก",
+                "default_flg": "N",
+                "days_due_back": "30",
+                "daily_late_fee": "0.00"
+            },
+            {
+                "code": "7",
+                "description": "ชั้นหนังสือใหม่",
+                "default_flg": "N",
+                "days_due_back": "21",
+                "daily_late_fee": "0.05"
+            },
+            {
+                "code": "9",
+                "description": "IT",
+                "default_flg": "N",
+                "days_due_back": "30",
+                "daily_late_fee": "0.00"
+            },
+            {
+                "code": "10",
+                "description": "Library1",
+                "default_flg": "N",
+                "days_due_back": "30",
+                "daily_late_fee": "0.00"
+            },
+            {
+                "code": "11",
+                "description": "Library2",
+                "default_flg": "N",
+                "days_due_back": "30",
+                "daily_late_fee": "0.00"
+            },
+            {
+                "code": "12",
+                "description": "Library3",
+                "default_flg": "N",
+                "days_due_back": "30",
+                "daily_late_fee": "0.00"
+            },
+            {
+                "code": "13",
+                "description": "Library1-P",
+                "default_flg": "N",
+                "days_due_back": "30",
+                "daily_late_fee": "0.00"
+            }
+        ]
+    }
+]

@@ -11,10 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
+        Schema::dropIfExists('materials');
         Schema::create('materials', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('img');
+            $table->string('img')->nullable();
             $table->enum('status', ['active', 'inactive'])->default('active')->comment("สถานะ");
 
             $table->integer('created_by')->nullable()->comment("ผู้สร้าง");

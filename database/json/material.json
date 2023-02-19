@@ -1,0 +1,60 @@
+[
+    {
+        "type": "header",
+        "version": "5.2.1",
+        "comment": "Export to JSON plugin for PHPMyAdmin"
+    },
+    {
+        "type": "database",
+        "name": "littleseal"
+    },
+    {
+        "type": "table",
+        "name": "material_type_dm",
+        "database": "littleseal",
+        "data": [
+            {
+                "code": "2",
+                "description": "หนังสือ",
+                "default_flg": "Y",
+                "image_file": "book.gif"
+            },
+            {
+                "code": "3",
+                "description": "ซีดีเสียง",
+                "default_flg": "N",
+                "image_file": "cd.gif"
+            },
+            {
+                "code": "4",
+                "description": "ซีดี-รอม",
+                "default_flg": "N",
+                "image_file": "cd.gif"
+            },
+            {
+                "code": "7",
+                "description": "แผนที่",
+                "default_flg": "N",
+                "image_file": "map.gif"
+            },
+            {
+                "code": "8",
+                "description": "วิดีโอดิสก์",
+                "default_flg": "N",
+                "image_file": "tape.gif"
+            },
+            {
+                "code": "9",
+                "description": "IT",
+                "default_flg": "N",
+                "image_file": "shim.gif"
+            },
+            {
+                "code": "10",
+                "description": "โสตวีดีทัศน์",
+                "default_flg": "N",
+                "image_file": "shim.gif"
+            }
+        ]
+    }
+]
