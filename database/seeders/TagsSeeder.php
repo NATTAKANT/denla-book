@@ -22,19 +22,28 @@ class TagsSeeder extends Seeder
             $old_biblio_data = json_decode($old_biblio, true);
 
             $collect_old_biblio = collect($old_biblio_data[2]['data']);
-            $t1 = $collect_old_biblio->unique('topic1')->pluck('topic1');
-            $t2 = $collect_old_biblio->unique('topic2')->pluck('topic2');
-            $t3 = $collect_old_biblio->unique('topic3')->pluck('topic3');
-            $t4 = $collect_old_biblio->unique('topic4')->pluck('topic4');
-            $t5 = $collect_old_biblio->unique('topic5')->pluck('topic5');
+            $t1 = $collect_old_biblio->pluck('topic1');
+            $t2 = $collect_old_biblio->pluck('topic2');
+            $t3 = $collect_old_biblio->pluck('topic3');
+            $t4 = $collect_old_biblio->pluck('topic4');
+            $t5 = $collect_old_biblio->pluck('topic5');
+
+            // $t1 = $collect_old_biblio->unique('topic1')->pluck('topic1');
+            // $t2 = $collect_old_biblio->unique('topic2')->pluck('topic2');
+            // $t3 = $collect_old_biblio->unique('topic3')->pluck('topic3');
+            // $t4 = $collect_old_biblio->unique('topic4')->pluck('topic4');
+            // $t5 = $collect_old_biblio->unique('topic5')->pluck('topic5');
 
             // เตรียม import ลงตาราง tags
             $collect = collect(Arr::collapse([$t1, $t2, $t3, $t4, $t5]))->unique();
 
+            // dd($collect);
             foreach ($collect as $key => $value) {
                 $new_tags[$key]['name'] = $value;
             }
-            foreach ($new_tags->unique() as $key => $value) {
+
+            // dd($new_tags);
+            foreach ($new_tags as $key => $value) {
 
                 $tags->create($value);
             }

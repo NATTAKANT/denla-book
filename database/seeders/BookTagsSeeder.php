@@ -2,7 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Books;
 use App\Models\BookTags;
+use App\Models\Tags;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Arr;
 
@@ -21,33 +23,86 @@ class BookTagsSeeder extends Seeder
             $old_biblio_data = json_decode($old_biblio, true);
 
             $collect_old_biblio = collect($old_biblio_data[2]['data']);
-            $t1 = $collect_old_biblio->pluck('bibid', 'topic1');
-            $t2 = $collect_old_biblio->pluck('bibid', 'topic2');
-            $t3 = $collect_old_biblio->pluck('bibid', 'topic3');
-            $t4 = $collect_old_biblio->pluck('bibid', 'topic4');
-            $t5 = $collect_old_biblio->pluck('bibid', 'topic5');
+            $t1 = $collect_old_biblio->where('topic1', '!=', '')->toArray();
+            $t2 = $collect_old_biblio->where('topic2', '!=', '')->toArray();
+            $t3 = $collect_old_biblio->where('topic3', '!=', '')->toArray();
+            $t4 = $collect_old_biblio->where('topic4', '!=', '')->toArray();
+            $t5 = $collect_old_biblio->where('topic5', '!=', '')->toArray();
 
 
 
             // เตรียม import ลงตาราง bookTags
-            $collect = collect(Arr::collapse([$t1, $t2, $t3, $t4, $t5]));
 
-            // dd($collect);
 
-            foreach ($collect as $key => $value) {
-
-                // $value['bibid'] = $key + 1;
-
-                $new_bookTags[$key]['book_id'] = $key;
-
-                $new_bookTags[$key]['tag_id'] = $value['name'];
+            $tags = Tags::all();
+            foreach ($t1 as $key => $value) {
+                foreach ($tags as $keys => $values) {
+                    if ($value['topic1'] == $values->name) {
+                        $set1[$key]['tag_id'] = $values->id;
+                        $set1[$key]['book_id'] = $value['bibid'];
+                    }
+                }
             }
-
-
-            // dd(collect($new_bookTags)->take(50));
-            foreach ($new_bookTags as $key => $value) {
+            foreach ($set1 as $key => $value) {
                 $bookTags->create($value);
             }
+
+            foreach ($t2 as $key => $value) {
+                foreach ($tags as $keys => $values) {
+                    if ($value['topic2'] == $values->name) {
+                        $set2[$key]['tag_id'] = $values->id;
+                        $set2[$key]['book_id'] = $value['bibid'];
+                    }
+                }
+            }
+            foreach ($set2 as $key => $value) {
+                $bookTags->create($value);
+            }
+
+            foreach ($t3 as $key => $value) {
+                foreach ($tags as $keys => $values) {
+                    if ($value['topic3'] == $values->name) {
+                        $set3[$key]['tag_id'] = $values->id;
+                        $set3[$key]['book_id'] = $value['bibid'];
+                    }
+                }
+            }
+            foreach ($set3 as $key => $value) {
+                $bookTags->create($value);
+            }
+
+            foreach ($t4 as $key => $value) {
+                foreach ($tags as $keys => $values) {
+                    if ($value['topic4'] == $values->name) {
+                        $set4[$key]['tag_id'] = $values->id;
+                        $set4[$key]['book_id'] = $value['bibid'];
+                    }
+                }
+            }
+            foreach ($set4 as $key => $value) {
+                $bookTags->create($value);
+            }
+
+            foreach ($t5 as $key => $value) {
+                foreach ($tags as $keys => $values) {
+                    if ($value['topic5'] == $values->name) {
+                        $set5[$key]['tag_id'] = $values->id;
+                        $set5[$key]['book_id'] = $value['bibid'];
+                    }
+                }
+            }
+            foreach ($set5 as $key => $value) {
+                $bookTags->create($value);
+            }
+
+            foreach (Books::all() as $key => $value) {
+                $bookTags->where('book_id', $value->location_id)->update([
+                    'book_id' => $value->id,
+                ]);
+            }
+
+            Books::whereNotNull('id')->update(['location_id' => 0]);
+
 
         else :
 
