@@ -84,7 +84,9 @@
                 Content body start
             ***********************************-->
         <div class="content-body">
-            @yield('content')
+            <div class="container-fluid">
+                @yield('content')
+            </div>
         </div>
         <!--**********************************
                     Content body end
@@ -108,14 +110,14 @@
 
     @livewireScripts
     <script>
-		jQuery(document).ready(function(){
-			setTimeout(function() {
-				dezSettingsOptions.version = 'dark';
-				new dezSettings(dezSettingsOptions);
-			},500)
-		});
-	</script>
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+        jQuery(document).ready(function() {
+            setTimeout(function() {
+                dezSettingsOptions.version = 'dark';
+                new dezSettings(dezSettingsOptions);
+            }, 500)
+        });
+    </script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     {{-- <x-livewire-alert::scripts /> --}}

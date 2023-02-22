@@ -19,3 +19,4 @@
 <link rel="stylesheet" href="{{ asset('assets/admin/vendor/pickadate/themes/default.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/admin/vendor/pickadate/themes/default.date.css') }}">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+

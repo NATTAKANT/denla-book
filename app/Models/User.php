@@ -3,7 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Factories\BelongsToRelationship;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
@@ -24,6 +26,9 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'title_id',
+        'role_id',
+        'position_id',
         'name',
         'email',
         'password',
@@ -58,4 +63,18 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+
+    public function Role(): BelongsTo
+    {
+        return $this->belongsTo(Role::class);
+    }
+    public function Title(): BelongsTo
+    {
+        return $this->belongsTo(title::class);
+    }
+    public function Position(): BelongsTo
+    {
+        return $this->belongsTo(Position::class);
+    }
 }

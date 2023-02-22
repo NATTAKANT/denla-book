@@ -28,12 +28,6 @@ class TagsSeeder extends Seeder
             $t4 = $collect_old_biblio->pluck('topic4');
             $t5 = $collect_old_biblio->pluck('topic5');
 
-            // $t1 = $collect_old_biblio->unique('topic1')->pluck('topic1');
-            // $t2 = $collect_old_biblio->unique('topic2')->pluck('topic2');
-            // $t3 = $collect_old_biblio->unique('topic3')->pluck('topic3');
-            // $t4 = $collect_old_biblio->unique('topic4')->pluck('topic4');
-            // $t5 = $collect_old_biblio->unique('topic5')->pluck('topic5');
-
             // เตรียม import ลงตาราง tags
             $collect = collect(Arr::collapse([$t1, $t2, $t3, $t4, $t5]))->unique();
 

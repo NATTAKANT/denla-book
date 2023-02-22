@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('limit')->comment("จำกัดจำนวนวัน");
-            $table->string('fee')->comment("ค่าล่วงเวลา");
+            $table->double('fee')->comment("ค่าล่วงเวลา");
             $table->enum('status', ['active', 'inactive'])->default('active')->comment("สถานะ");
             $table->integer('created_by')->nullable()->comment("ผู้สร้าง");
             $table->integer('updated_by')->nullable()->comment("ผู้แก้ไขล่าสุด");
