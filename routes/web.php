@@ -29,4 +29,14 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
 
 
     Route::view('/admin/booking/index', 'admin.booking.index')->name('admin.booking.index');
+
+
+
+
+    Route::view('/admin/setting-user/user/index', 'admin.setting-user.user.index')->name('admin.setting-user.user.index');
+    
+
+
+    Route::view('/admin/setting-user/positions', 'admin.setting-user.positions')->name('admin.setting-user.positions');
+
 });

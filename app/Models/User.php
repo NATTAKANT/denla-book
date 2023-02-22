@@ -29,8 +29,10 @@ class User extends Authenticatable
         'title_id',
         'role_id',
         'position_id',
-        'name',
+        'firstname',
+        'lastname',
         'email',
+        'status',
         'password',
     ];
 
@@ -45,6 +47,11 @@ class User extends Authenticatable
         'two_factor_recovery_codes',
         'two_factor_secret',
     ];
+
+        public function getFullNameAttribute()
+    {
+        return $this->firstname . ' ' . $this->lastname;
+    }
 
     /**
      * The attributes that should be cast.
