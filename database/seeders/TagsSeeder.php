@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Tags;
+use App\Models\Tag;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Arr;
 
@@ -11,7 +11,7 @@ class TagsSeeder extends Seeder
     /**
      * Run the database seeds.
      */
-    public function run(Tags $tags): void
+    public function run(Tag $tags): void
     {
 
         if ($tags->count() == 0) :

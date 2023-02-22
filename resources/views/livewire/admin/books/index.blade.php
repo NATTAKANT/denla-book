@@ -1,50 +1,4 @@
 <div>
-    {{-- <div class="card">
-        <div class="card-header">
-            <h4 class="card-title">Basic Datatable</h4>
-        </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <table id="example" class="table table-hover header-border display" style="min-width: 845px">
-                    <thead>
-                        <tr class="table-active">
-                            <th>Name</th>
-                            <th>Position</th>
-                            <th>Office</th>
-                            <th>Age</th>
-                            <th>Start date</th>
-                            <th>Salary</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($books as $book)
-                            <tr>
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{ $book->title }}</td>
-                                <td>{{ $book->status }}</td>
-                                <td>{{ $book->location_id }}</td>
-                                <td>{{ $book->material }}</td>
-                                <td>
-                                    @if ($book->img)
-                                    @else
-                                    @endif
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <th>Name</th>
-                            <th>Position</th>
-                            <th>Office</th>
-                            <th>Age</th>
-                            <th>Start date</th>
-                            <th>Salary</th>
-                        </tr>
-                    </tfoot>
-                </table>
-            </div>
-        </div> --}}
     <div class="row">
         @foreach ($books as $book)
             <div class="col-lg-12 col-xl-6">
@@ -55,7 +9,7 @@
                                 <div class="new-arrival-product mb-4 mb-xxl-4 mb-md-0">
                                     <div class="new-arrivals-img-contnent">
                                         @if ($book->img)
-                                            <img class="img-fluid" src="{{ asset('storage/images/1.jpg') }}"
+                                            <img class="img-fluid" src="{{ asset('storage/images/' . $book->img) }}"
                                                 alt="">
                                         @else
                                             <img class="img-fluid" src="{{ asset('storage/images/product/2.jpg') }}"
@@ -74,26 +28,73 @@
                                         @endif
                                     </h4>
                                     <div class="comment-review star-rating">
-                                        <ul>
+                                        {{-- <ul>
                                             <li><i class="fa fa-star"></i></li>
                                             <li><i class="fa fa-star"></i></li>
                                             <li><i class="fa fa-star"></i></li>
                                             <li><i class="fa fa-star-half-empty"></i></li>
                                             <li><i class="fa fa-star-half-empty"></i></li>
-                                        </ul>
-                                        <span class="review-text">(34 reviews) / </span><a class="product-review"
-                                            href="" data-bs-toggle="modal" data-bs-target="#reviewModal">Write a
+                                        </ul> --}}
+                                        <span class="review-text">34 การยืม/ครั้ง </span>
+                                        {{-- <a class="product-review" href="" data-bs-toggle="modal"
+                                            data-bs-target="#reviewModal">Write a
                                             review?</a>
-                                        <p class="price">$320.00</p>
+                                        <p class="price">$320.00</p> --}}
                                     </div>
-                                    <p>Availability: <span class="item"> In stock <i
-                                                class="fa fa-check-circle text-success"></i></span></p>
-                                    <p>Product code: <span class="item">0405689</span> </p>
-                                    <p>Brand: <span class="item">Lee</span></p>
-                                    <p class="text-content">There are many variations of passages of Lorem Ipsum
-                                        available,
-                                        but the majority have suffered alteration in some form, by injected humour, or
-                                        randomised words.</p>
+                                    <p>ผู้แต่ง: <span class="item">{{ $book->author }}</span> </p>
+                                    <p>ผู้แต่งร่วม: <span class="item">{{ $book->author_co }}</span> </p>
+
+                                    <p>สถานะการเผยแพร่:
+                                        <span class="item">
+                                            @switch($book->status)
+                                                @case('active')
+                                                    <i class="fa fa-eye   text-success"></i>
+                                                    เผยแพร่
+                                                @break
+
+                                                @case('inactive')
+                                                    <i class="fa fa-eye-slash  text-danger"></i>
+                                                    ไม่เผยแพร่
+                                                @break
+
+                                                @default
+                                            @endswitch
+                                        </span>
+                                    </p>
+                                    <p>สถานะการยืม:
+                                        <span class="item">
+                                            @switch($book->status)
+                                                @case('active')
+                                                    <i class="fa fa-user  text-danger"></i>
+                                                    อยู่ในระหว่างการยืม
+                                                @break
+
+                                                @case('inactive')
+                                                    <i class="fa fa-user   text-success"></i>
+                                                    ว่าง
+                                                @break
+
+                                                @default
+                                            @endswitch
+                                            {{-- <i class="fa fa-check text-success"></i> --}}
+                                        </span>
+                                    </p>
+                                    <p>เลขหนังสือ: <span class="item">{{ $book->call_number ?? '-' }}</span> </p>
+                                    <p>ISBN: <span class="item">{{ $book->ISBN ?? '-' }}</span> </p>
+                                    <p>ISSN: <span class="item">{{ $book->ISSN ?? '-' }}</span> </p>
+                                    <p>DOI: <span class="item">{{ $book->DOI ?? '-' }}</span> </p>
+                                    <p>สำนักพิมพ์: <span class="item">{{ $book->publisher ?? '-' }}</span></p>
+                                    <p>จำนวนหน้า: <span class="item">{{ $book->page ?? '-' }}</span></p>
+                                    <p class="text-content">
+                                        {{ $book->synopsis ??
+                                            'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae ad deserunt quod
+                                                                                                                        libero, eius consequuntur soluta a aspernatur, voluptatum ea cupiditate sit ut
+                                                                                                                        asperiores.' }}
+                                    </p>
+                                    <p>บันทึกโดย: <span class="item">{{ $book->created_by ?? '-' }}</span></p>
+                                    <p>แก้ไขโดย: <span class="item">{{ $book->updated_by ?? '-' }}</span></p>
+                                    <p>บันทึกเวลา: <span class="item">{{ $book->created_by ?? '-' }}</span></p>
+                                    <p>แก้ไขเวลา: <span class="item">{{ $book->updated_by ?? '-' }}</span></p>
                                 </div>
                             </div>
                         </div>

@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Models\Books;
-use App\Models\BookTags;
-use App\Models\Tags;
+use App\Models\Book;
+use App\Models\BookTag;
+use App\Models\Tag;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Arr;
 
@@ -13,7 +13,7 @@ class BookTagsSeeder extends Seeder
     /**
      * Run the database seeds.
      */
-    public function run(BookTags $bookTags): void
+    public function run(BookTag $bookTags): void
     {
         if ($bookTags->count() == 0) :
 
@@ -34,7 +34,7 @@ class BookTagsSeeder extends Seeder
             // เตรียม import ลงตาราง bookTags
 
 
-            $tags = Tags::all();
+            $tags = Tag::all();
             foreach ($t1 as $key => $value) {
                 foreach ($tags as $keys => $values) {
                     if ($value['topic1'] == $values->name) {
@@ -95,13 +95,13 @@ class BookTagsSeeder extends Seeder
                 $bookTags->create($value);
             }
 
-            foreach (Books::all() as $key => $value) {
+            foreach (Book::all() as $key => $value) {
                 $bookTags->where('book_id', $value->location_id)->update([
                     'book_id' => $value->id,
                 ]);
             }
 
-            Books::whereNotNull('id')->update(['location_id' => 0]);
+            Book::whereNotNull('id')->update(['location_id' => 0]);
 
 
         else :

@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Materials;
+use App\Models\Material;
 use Illuminate\Database\Seeder;
 
 class MaterialSeeder extends Seeder
@@ -10,7 +10,7 @@ class MaterialSeeder extends Seeder
     /**
      * Run the database seeds.
      */
-    public function run(Materials $materials): void
+    public function run(Material $materials): void
     {
         /* This is checking to see if the database is empty. If it is empty, it will run the code. */
         if ($materials->count() == 0) :

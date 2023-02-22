@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Collections;
+use App\Models\Collection;
 use Illuminate\Database\Seeder;
 
 class CollectionsSeeder extends Seeder
@@ -10,7 +10,7 @@ class CollectionsSeeder extends Seeder
     /**
      * Run the database seeds.
      */
-    public function run(Collections $collections): void
+    public function run(Collection $collections): void
     {
 
         /* This is checking to see if the database is empty. If it is empty, it will run the code. */

@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Books;
+use App\Models\Book;
 use Illuminate\Database\Seeder;
 
 class BooksSeeder extends Seeder
@@ -10,7 +10,7 @@ class BooksSeeder extends Seeder
     /**
      * Run the database seeds.
      */
-    public function run(Books $books): void
+    public function run(Book $books): void
     {
         if ($books->count() == 0) :
 
@@ -99,11 +99,11 @@ class BooksSeeder extends Seeder
 
             $new_books[$key]['collection_id'] = $value['collection_cd'];
 
-            $new_books[$key]['isbn_1'] = $value['call_nmbr1'];
+            $new_books[$key]['call_number'] = $value['call_nmbr1'];
 
-            $new_books[$key]['isbn_2'] = $value['call_nmbr2'];
+            // $new_books[$key]['isbn_2'] = $value['call_nmbr2'];
 
-            $new_books[$key]['isbn_3'] = $value['call_nmbr3'];
+            // $new_books[$key]['isbn_3'] = $value['call_nmbr3'];
 
             $new_books[$key]['title'] = $value['title'];
 
@@ -113,7 +113,7 @@ class BooksSeeder extends Seeder
 
             $new_books[$key]['author'] = $value['author'];
 
-            
+
 
         }
 
