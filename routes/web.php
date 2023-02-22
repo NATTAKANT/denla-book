@@ -19,24 +19,21 @@ Route::get('/', function () {
 
 // Route::view('/admin/index', 'admin.index')->name('index');
 
-Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])->group(function () {
+Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])
+    ->name('admin.')
+    ->prefix('admin/')
+    ->group(function () {
+        Route::get('/dashboard', function () {
+            return view('dashboard');
+        })->name('dashboard');
 
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+        Route::view('index', 'admin.index')->name('index');
 
-    Route::view('/admin/index', 'admin.index')->name('admin.index');
+        Route::view('booking/index', 'admin.booking.index')->name('booking.index');
 
+        Route::view('books', 'admin.books.index')->name('books.index');
 
-    Route::view('/admin/booking/index', 'admin.booking.index')->name('admin.booking.index');
+        Route::view('setting-user/user/index', 'admin.setting-user.user.index')->name('setting-user.user.index');
 
-
-
-
-    Route::view('/admin/setting-user/user/index', 'admin.setting-user.user.index')->name('admin.setting-user.user.index');
-    
-
-
-    Route::view('/admin/setting-user/positions', 'admin.setting-user.positions')->name('admin.setting-user.positions');
-
-});
+        Route::view('setting-user/positions', 'admin.setting-user.positions')->name('setting-user.positions');
+    });

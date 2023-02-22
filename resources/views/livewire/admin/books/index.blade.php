@@ -1,7 +1,7 @@
 <div>
     <div class="row">
         @foreach ($books as $book)
-            <div class="col-lg-12 col-xl-6">
+            <div class="col-lg-12 col-xl-3">
                 <div class="card">
                     <div class="card-body">
                         <div class="row m-b-30">
@@ -48,11 +48,13 @@
                                         <span class="item">
                                             @switch($book->status)
                                                 @case('active')
+                                                    <br>
                                                     <i class="fa fa-eye   text-success"></i>
                                                     เผยแพร่
                                                 @break
 
                                                 @case('inactive')
+                                                    <br>
                                                     <i class="fa fa-eye-slash  text-danger"></i>
                                                     ไม่เผยแพร่
                                                 @break
@@ -65,11 +67,13 @@
                                         <span class="item">
                                             @switch($book->status)
                                                 @case('active')
+                                                    <br>
                                                     <i class="fa fa-user  text-danger"></i>
                                                     อยู่ในระหว่างการยืม
                                                 @break
 
                                                 @case('inactive')
+                                                    <br>
                                                     <i class="fa fa-user   text-success"></i>
                                                     ว่าง
                                                 @break
@@ -79,7 +83,7 @@
                                             {{-- <i class="fa fa-check text-success"></i> --}}
                                         </span>
                                     </p>
-                                    <p>เลขหนังสือ: <span class="item">{{ $book->call_number ?? '-' }}</span> </p>
+                                    {{-- <p>เลขหนังสือ: <span class="item">{{ $book->call_number ?? '-' }}</span> </p>
                                     <p>ISBN: <span class="item">{{ $book->ISBN ?? '-' }}</span> </p>
                                     <p>ISSN: <span class="item">{{ $book->ISSN ?? '-' }}</span> </p>
                                     <p>DOI: <span class="item">{{ $book->DOI ?? '-' }}</span> </p>
@@ -94,7 +98,7 @@
                                     <p>บันทึกโดย: <span class="item">{{ $book->created_by ?? '-' }}</span></p>
                                     <p>แก้ไขโดย: <span class="item">{{ $book->updated_by ?? '-' }}</span></p>
                                     <p>บันทึกเวลา: <span class="item">{{ $book->created_by ?? '-' }}</span></p>
-                                    <p>แก้ไขเวลา: <span class="item">{{ $book->updated_by ?? '-' }}</span></p>
+                                    <p>แก้ไขเวลา: <span class="item">{{ $book->updated_by ?? '-' }}</span></p> --}}
                                 </div>
                             </div>
                         </div>
@@ -103,5 +107,8 @@
             </div>
         @endforeach
 
+    </div>
+    <div class="d-flex justify-content-end">
+        {{ $books->links() }}
     </div>
 </div>

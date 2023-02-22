@@ -4,9 +4,14 @@ namespace App\Http\Livewire\Admin\Books;
 
 use Livewire\Component;
 use App\Models\Book;
+use Livewire\WithPagination;
 
 class Index extends Component
 {
+
+    use WithPagination;
+
+    protected $paginationTheme = 'bootstrap';
 
     public $paginate = 20;
 
