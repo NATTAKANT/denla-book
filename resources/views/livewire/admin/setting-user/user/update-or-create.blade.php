@@ -12,7 +12,7 @@
                 <div class="modal-body">
                     <div class="row gy-4">
                         
-                        <div class="col-md-6">
+                        <!-- <div class="col-md-6">
                             <div>
                                 <label class="form-label">คำนำหน้า</label>
                                  <div wire:ignore>
@@ -28,7 +28,7 @@
                                     <div class="text-danger"></div>
                             
                             </div> 
-                        </div>
+                        </div> -->
                         <div class="col-md-6">
                             <div>
                                 <label class="form-label">ชื่อ</label>
@@ -78,7 +78,7 @@
                                 @enderror 
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <!-- <div class="col-md-6">
                             <div>
                                 <label class="form-label">เบอร์โทรศัพท์</label>
                                 <input type="tel" class="form-control" wire:model.defer="phone">
@@ -86,11 +86,11 @@
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror 
                             </div>
-                        </div>
+                        </div> -->
                         
                         
                         
-                        <div class="col-md-6">
+                        <!-- <div class="col-md-6">
                             <div>
                                 <label class="form-label">ตำแหน่ง</label>
                                 <div wire:ignore>
@@ -106,8 +106,8 @@
                                     <div class="text-danger"></div>
                                 
                             </div> 
-                        </div>
-                        <div class="col-md-6">
+                        </div> -->
+                        <!-- <div class="col-md-6">
                             <div>
                                 <label class="form-label">กลุ่มผู้ใช้งาน</label>
                                  <div wire:ignore>
@@ -121,7 +121,7 @@
                                 </div>
                                
                             </div> 
-                        </div>
+                        </div> -->
                         <div class="col-md-12">
                             <div>
                                 <label class="form-label">สถานะ</label>
