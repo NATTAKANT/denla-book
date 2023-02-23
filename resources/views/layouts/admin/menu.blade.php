@@ -23,7 +23,7 @@
     <ul aria-expanded="false" class="mm-collapse" style="">
 
         <li><a href="{{route('admin.setting-user.user.index') }}">เจ้าหน้าที่</a></li>
-        <li><a href="{{route('admin.setting-user.positions')}}">ตำแหน่ง</a></li>
+        <li><a href="{{route('admin.setting-user.positions.index')}}">ตำแหน่ง</a></li>
 
     </ul>
 </li>

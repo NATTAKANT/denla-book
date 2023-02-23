@@ -9,6 +9,10 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Position extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'name',
+        'status',
+    ];
 
     public function Users(): HasMany
     {

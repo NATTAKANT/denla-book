@@ -33,7 +33,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
 
         Route::view('books', 'admin.books.index')->name('books.index');
 
-        Route::view('setting-user/user/index', 'admin.setting-user.user.index')->name('setting-user.user.index');
+        Route::view('setting-user/user', 'admin.setting-user.user.index')->name('setting-user.user.index');
 
-        Route::view('setting-user/positions', 'admin.setting-user.positions')->name('setting-user.positions');
+        Route::view('setting-user/positions', 'admin.setting-user.positions.index')->name('setting-user.positions.index');
     });
