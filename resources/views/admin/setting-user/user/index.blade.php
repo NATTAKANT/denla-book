@@ -13,7 +13,7 @@
                             <div class="col-lg-6 text-end">
                                 <button type="button" class="btn btn-rounded btn-primary" data-bs-toggle="modal"
                                     data-bs-target="#addUserModal">
-                                    
+
                                         <i class="fi fi-rr-plus color-primary"></i>
                                   เพิ่มผู้ใช้งาน
                                 </button>
@@ -28,9 +28,10 @@
 
 
     <!-- โมดอลเพิ่มผู้ใช้งาน -->
-    @livewire('admin.setting-user.user.update-or-create')
+
 
     <!-- โมดอลแก้ไขผู้ใช้งาน -->
+
 
 
 @endsection
