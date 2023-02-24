@@ -39,32 +39,39 @@ class BooksSeeder extends Seeder
 
 
 
-        foreach ($arr as $key => $value) {
+        foreach ($arr as $value) {
 
-            switch ($value['material_cd']) {
-                case 2:
-                    $value['material_cd'] = 1;
-                    break;
-                case 3:
-                    $value['material_cd'] = 2;
-                    break;
-                case 4:
-                    $value['material_cd'] = 3;
-                    break;
-                case 7:
-                    $value['material_cd'] = 4;
-                    break;
-                case 8:
-                    $value['material_cd'] = 5;
-                    break;
-                case 9:
-                    $value['material_cd'] = 6;
-                    break;
-                case 10:
-                    $value['material_cd'] = 7;
-                    break;
+            // switch ($value['material_cd']) {
+            //     case 2:
+            //         $value['material_cd'] = 1;
+            //         break;
+            //     case 3:
+            //         $value['material_cd'] = 2;
+            //         break;
+            //     case 4:
+            //         $value['material_cd'] = 3;
+            //         break;
+            //     case 7:
+            //         $value['material_cd'] = 4;
+            //         break;
+            //     case 8:
+            //         $value['material_cd'] = 5;
+            //         break;
+            //     case 9:
+            //         $value['material_cd'] = 6;
+            //         break;
+            //     case 10:
+            //         $value['material_cd'] = 7;
+            //         break;
+            // }
+
+            for ($i = 1; $i <= 7; $i++) {
+                $value['material_cd'] = $i;
             }
 
+            // for ($i = 1; $i <= 8; $i++) {
+            //     $value['collection_cd'] = $i;
+            // }
 
             switch ($value['collection_cd']) {
                 case 1:
@@ -93,28 +100,47 @@ class BooksSeeder extends Seeder
                     break;
             }
 
-            $new_books[$key]['location_id'] = $value['bibid'];
+            $new_books[] = [
+                "location_id" => $value['bibid'],
 
-            $new_books[$key]['material_id'] = $value['material_cd'];
+                "material_id" => $value['material_cd'],
 
-            $new_books[$key]['collection_id'] = $value['collection_cd'];
+                "collection_id" => $value['collection_cd'],
 
-            $new_books[$key]['call_number'] = $value['call_nmbr1'];
+                "call_number" => $value['call_nmbr1'],
 
-            // $new_books[$key]['isbn_2'] = $value['call_nmbr2'];
+                "title" => $value['title'],
 
-            // $new_books[$key]['isbn_3'] = $value['call_nmbr3'];
+                "title_another" => $value['title_remainder'],
 
-            $new_books[$key]['title'] = $value['title'];
+                "responsibility" => $value['responsibility_stmt'],
 
-            $new_books[$key]['title_another'] = $value['title_remainder'];
+                "author" => $value['author'],
+                "created_at" => $value['create_dt'],
+                "updated_at" => $value['last_change_dt'],
 
-            $new_books[$key]['responsibility'] = $value['responsibility_stmt'];
-
-            $new_books[$key]['author'] = $value['author'];
+            ];
 
 
+            // $new_books[$key]['location_id'] = $value['bibid'];
 
+            // $new_books[$key]['material_id'] = $value['material_cd'];
+
+            // $new_books[$key]['collection_id'] = $value['collection_cd'];
+
+            // $new_books[$key]['call_number'] = $value['call_nmbr1'];
+
+            // // $new_books[$key]['isbn_2'] = $value['call_nmbr2'];
+
+            // // $new_books[$key]['isbn_3'] = $value['call_nmbr3'];
+
+            // $new_books[$key]['title'] = $value['title'];
+
+            // $new_books[$key]['title_another'] = $value['title_remainder'];
+
+            // $new_books[$key]['responsibility'] = $value['responsibility_stmt'];
+
+            // $new_books[$key]['author'] = $value['author'];
         }
 
         return $new_books;

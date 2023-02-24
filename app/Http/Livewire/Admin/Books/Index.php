@@ -13,10 +13,20 @@ class Index extends Component
 
     protected $paginationTheme = 'bootstrap';
 
-    public $paginate = 20;
+    public
+        $paginate = 10,
+        $mode,
+        $orderBy = 'created_at',
+        $sortBy = 'desc',
+        $filters = [];
 
-    public function render(Book $books)
+    public function render()
     {
-        return view('livewire.admin.books.index', ['books' => $books->with('BookTags')->paginate($this->paginate)]);
+        return view('livewire.admin.books.index', [
+            'books' => Book::query()
+                ->with('Tags')
+                ->orderBy($this->orderBy, $this->sortBy)
+                ->paginate($this->paginate)
+        ]);
     }
 }

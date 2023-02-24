@@ -14,4 +14,16 @@ class Book extends Model
     {
         return $this->hasMany(BookTag::class, 'book_id');
     }
+
+    public function Tags()
+    {
+        return $this->hasManyThrough(
+            Tag::class,
+            BookTag::class,
+            'book_id',
+            'id',
+            'id',
+            'tag_id'
+        );
+    }
 }
