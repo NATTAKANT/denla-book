@@ -1,7 +1,9 @@
 @extends('layouts.admin.app')
-
+@section('title')
+    ตำแหน่ง
+@endsection
 @section('content')
-<div class="container-fluid">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-lg-12">
                 <div class="card ft-prompt">
@@ -14,18 +16,15 @@
                                 <button type="button" class="btn btn-rounded btn-primary" data-bs-toggle="modal"
                                     data-bs-target="#editUserModal">
 
-                                        <i class="fi fi-rr-plus color-primary"></i>
-                                  เพิ่มตำแหน่ง
+                                    <i class="fi fi-rr-plus color-primary"></i>
+                                    เพิ่มตำแหน่ง
                                 </button>
                             </div>
                         </div>
                     </div>
-                 @livewire('admin.setting-user.positions.index')
+                    @livewire('admin.setting-user.positions.index')
                 </div>
             </div>
         </div>
     </div>
-
-
 @endsection
-

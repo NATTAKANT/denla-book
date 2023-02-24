@@ -1,5 +1,7 @@
 @extends('layouts.admin.app')
-
+@section('title')
+ผู้ใช้งาน
+@endsection
 @section('content')
 <div class="container-fluid">
         <div class="row">
