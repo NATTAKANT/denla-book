@@ -3,7 +3,7 @@
                 <div class="row g-3">
                     <div class="col-md-4 col-lg-3" wire:ignore >
                         <select class="form-control wide" wire:model="roles" onchange="@this.set('roles',$(this).val())">
-                            <option value="">กลุ่มผู้ใช้งานทั้งหมด</option>
+                            <option value="">กลุ่มเจ้าหน้าที่ทั้งหมด</option>
                             @foreach ($role as $rows)
                                 <option value="{{ $rows->id }}">{{ $rows->name }}</option>
                             @endforeach
@@ -85,7 +85,7 @@
      <div class="modal-content">
          <div class="modal-header">
              <h5 class="modal-title" id="addUserModal" >
-                 <i class="fi fi-rr-plus me-2"></i>เพิ่มผู้ใช้งาน
+                 <i class="fi fi-rr-plus me-2"></i>เพิ่มเจ้าหน้าที่
              </h5>
              <button type="button" class="btn-close"
                      onclick="javascript:window.location.reload()" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -181,7 +181,7 @@
 
                      <div class="col-md-4">
                          <div>
-                             <label class="form-label">สิทธ์ผู้ใช้งาน</label>
+                             <label class="form-label">สิทธ์เจ้าหน้าที่</label>
                               <div wire:ignore>
                                  <select class="form-control wide" onchange="@this.set('role_id',$(this).val(),true)" >
                                      <option selected>เลือก</option>
@@ -274,7 +274,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="editUserModal" >
-                        <i class="fi fi-rr-plus me-2"></i>จัดการผู้ใช้งาน
+                        <i class="fi fi-rr-plus me-2"></i>จัดการเจ้าหน้าที่
                     </h5>
                     <button type="button" class="btn-close"
                             onclick="javascript:window.location.reload()" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -370,7 +370,7 @@
 
                             <div class="col-md-4">
                                 <div>
-                                    <label class="form-label">สิทธ์ผู้ใช้งาน</label>
+                                    <label class="form-label">สิทธ์เจ้าหน้าที่</label>
                                      <div wire:ignore>
                                         <select wire:model.defer="role_id" class="form-control wide" onchange="@this.set('role_id',$(this).val(),true)" >
                                             <option selected>เลือก</option>
