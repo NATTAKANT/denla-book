@@ -24,6 +24,8 @@
 
         <li><a href="{{route('admin.setting-user.user.index') }}">เจ้าหน้าที่</a></li>
         <li><a href="{{route('admin.setting-user.positions.index')}}">ตำแหน่ง</a></li>
+        <li><a href="{{route('admin.setting-user.title.index')}}">คำนำหน้า</a></li>
+
 
     </ul>
 </li>

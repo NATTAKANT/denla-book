@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Livewire\Admin\SettingUser\Positions;
+namespace App\Http\Livewire\Admin\SettingUser\Title;
 
 use Livewire\Component;
-use App\Models\Position;
+use App\Models\Title;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\DB;
 
@@ -11,12 +11,11 @@ class Index extends Component
 {
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
-
-    public  $search, $name, $positionId, $status;
+    public  $search, $name, $titleId, $status;
 
     public function render()
     {
-        $position = Position::query()
+        $title = Title::query()
         ->when(!empty($this->search), function ($query) {
             $query->where(function ($query) {
                 $query->where('name', 'like', '%' . $this->search . '%');
@@ -26,14 +25,14 @@ class Index extends Component
         })->paginate(10);
 
 
-        return view('livewire.admin.setting-user.positions.index'
-        ,compact('position'));
+
+        return view('livewire.admin.setting-user.title.index' ,compact('title'));
     }
 
     public function edit_show($id)
     {
-        $show = Position::findOrFail($id);
-        $this->positionId = $id;
+        $show = Title::findOrFail($id);
+        $this->titleId = $id;
         $this->name = $show->name;
         $this->status = $show->status;
     }
@@ -47,27 +46,28 @@ class Index extends Component
                   'status' => 'required'
             ],
             [
-                'name.required' => 'กรุณาระบุชื่อ',
+                'name.required' => 'กรุณาระบุคำนำหน้า',
                 'status.required' => 'กรุณาระบุสถานะ',
             ]
         );
     try {
 
-        Position::updateOrCreate(
+        Title::updateOrCreate(
                 [
-                    'id'             => $this->positionId
+                    'id'    => $this->titleId
                 ],
                 [
-                    'name'    => $this->name,
-                    'status'      => $this->status,
+
+                    'name'  => $this->name,
+                    'status'=> $this->status,
                 ]
             );
 
-            return redirect()->to('admin/setting-user/positions');
+            return redirect()->to('admin/setting-user/title');
 
         } catch (\Exception $e) {
 
-            session()->flash('error', 'ชื่อตำแหน่งซ้ำ');
+            session()->flash('error', 'ชื่อคำนำหน้า');
         }
     }
 
