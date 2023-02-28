@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="no-js">
 
 <head>
     <meta charset="UTF-8">
@@ -9,6 +9,7 @@
     {{-- <link rel="icon" type="image/x-icon"
         href="{{ Storage::disk('public')->url(\App\Models\Setting::where('slug', 'icon')->first()->value) }}"> --}}
     @livewireStyles
+    
     @include('layouts.admin.head')
     @stack('css')
 </head>

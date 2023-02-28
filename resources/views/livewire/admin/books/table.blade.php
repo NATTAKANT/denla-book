@@ -33,7 +33,23 @@
                                 <td> {{ $book->ISBN }} </td>
                                 <td> {{ $book->ISSN }} </td>
                                 <td> {{ $book->DOI }} </td>
-                                <td> {{ $book->status }} </td>
+                                <td>
+                                    @switch($book->status)
+                                        @case('active')
+                                            <br>
+                                            <i class="fa fa-eye   text-success"></i>
+                                            เผยแพร่
+                                        @break
+
+                                        @case('inactive')
+                                            <br>
+                                            <i class="fa fa-eye-slash  text-danger"></i>
+                                            ไม่เผยแพร่
+                                        @break
+
+                                        @default
+                                    @endswitch
+                                </td>
                                 <td> ... </td>
                                 <td> ... </td>
                                 <td>
@@ -60,11 +76,11 @@
                                     </div>
                                 </td>
                             </tr>
-                        @empty
-                        @endforelse
-                    </tbody>
-                </table>
+                            @empty
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
-</div>

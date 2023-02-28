@@ -107,7 +107,7 @@ class BooksSeeder extends Seeder
 
                 "collection_id" => $value['collection_cd'],
 
-                "call_number" => $value['call_nmbr1'],
+                "call_number" => $value['call_nmbr1'] . $value['call_nmbr2'] . $value['call_nmbr3'],
 
                 "title" => $value['title'],
 

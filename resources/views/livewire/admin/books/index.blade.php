@@ -11,25 +11,33 @@
             @include('livewire.admin.books.table')
         @endif
 
-        @include('livewire.admin.books.form')
 
     </div>
+   
+
     <div class="d-flex justify-content-end">
+        <div class="row">
+            <div class="col-auto">
+                {{ $books->links() }}
+            </div>
+            <div class="col-auto ml-4">
 
-        {{ $books->links() }}
-
+                <select wire:model="paginate" class="form-control mb-3 ">
+                    @for ($i = 10; $i <= 50; $i += 10)
+                        <option value="{{ $i }}"> {{ "${i} / หน้า" }}</option>
+                    @endfor
+                </select>
+            </div>
+        </div>
         {{-- <label for="">แสดงจำนวนต่อหน้า</label> --}}
-        <select wire:model="paginate" class="form-control wide mb-3 ">
-            @for ($i = 10; $i <= 50; $i += 10)
-                <option value="{{ $i }}"> {{ "${i} / หน้า" }}</option>
-            @endfor
-        </select>
     </div>
+    @include('livewire.admin.books.form')
+
 </div>
 @push('scripts')
     <script type="text/javascript">
-        window.livewire.on('userStore', () => {
-            $('#exampleModal').modal('hide');
+        window.livewire.on('Store', () => {
+            $('#FormModal').modal('hide');
         });
     </script>
 @endpush
