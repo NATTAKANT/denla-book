@@ -30,3 +30,23 @@
     </ul>
 </li>
 
+<li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+    <i class="fi fi-rr-print"></i>
+        <span class="nav-text">รายงาน</span>
+    </a>
+    <ul aria-expanded="false" class="mm-collapse" style="">
+
+        <li><a href="{{route('admin.reports.booking.index') }}">การจอง</a></li>
+        <li><a href="#">การยืม-คืน</a></li>
+        <li><a href="{{route('admin.reports.book.index')}}">คลังหน้งสือ</a></li>
+        <li><a href="#">อันดับการยืมหน้งสือ</a></li>
+        <li><a href="#">รายละเอียดผู้ใช้งาน</a></li>
+        <li><a href="#">รายละเอียดนักเรียน</a></li>
+
+
+
+
+    </ul>
+</li>
+
+
