@@ -10,11 +10,11 @@ class BookTag extends Model
 {
     use HasFactory;
 
-    public function Books(): BelongsTo
+    public function books(): BelongsTo
     {
         return $this->belongsTo(Book::class);
     }
-    public function Tags(): BelongsTo
+    public function tags(): BelongsTo
     {
         return $this->belongsTo(Tag::class);
     }

@@ -5,17 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Book extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
-    public function BookTags(): HasMany
+    protected $guarded = [];
+
+    public function book_tags()
     {
-        return $this->hasMany(BookTag::class, 'book_id');
+        return $this->belongsToMany(Tag::class, 'book_tags');
     }
 
-    public function Tags()
+    public function tags()
     {
         return $this->hasManyThrough(
             Tag::class,

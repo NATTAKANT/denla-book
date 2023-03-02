@@ -70,7 +70,8 @@
                                         </button>
                                         <div class="dropdown-menu">
                                             <a class="dropdown-item" href="#">ดูรายละเอียด</a>
-                                            <a class="dropdown-item" href="#">แก้ไข</a>
+                                            <button class="dropdown-item" wire:click="edit({{ $book->id }})"
+                                                data-bs-toggle="modal" data-bs-target="#FormModal">แก้ไข</button>
                                             <a class="dropdown-item" href="#">ลบ</a>
                                         </div>
                                     </div>

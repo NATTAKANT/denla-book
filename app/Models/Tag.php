@@ -10,8 +10,12 @@ class Tag extends Model
 {
     use HasFactory;
 
-    public function BookTags(): HasMany
+    public function book_tags()
     {
         return $this->hasMany(BookTag::class, 'book_id');
+    }
+    public function books()
+    {
+        return $this->belongsToMany(Book::class, 'book_tags');
     }
 }

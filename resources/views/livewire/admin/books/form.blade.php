@@ -5,30 +5,39 @@
     aria-labelledby="FormModalLabel" aria-hidden="true" wire:ignore.self>
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
-            <div class="modal-header">
+            <div wire:ignore class="modal-header">
                 <h5 class="modal-title" id="FormModal">
-                    {{-- <i class="fi fi-rr-plus me-2"></i> --}}
                     จัดการหนังสือ
                 </h5>
-                {{-- <button type="button" class="btn-close btn-primary" onclick="window.location.reload()"
-                data-bs-dismiss="modal" aria-label="Close">
-            </button> --}}
-
-                <input type="checkbox" wire:model="status" checked data-toggle="toggle" data-on="เผยแพร่"
-                    data-off="ไม่แผยแพร่" data-width="100" data-onstyle="success" data-size="xs" data-offstyle="danger">
-
-
+                <input type="checkbox" id="status" wire:model.defer="form.status" />
             </div>
             <form wire:submit.prevent="submit" enctype="multipart/form-data">
-                <div wire:ignore class="modal-body">
+                <div class="modal-body">
                     <div class="row gy-4">
+                        @if ($errors->all())
+                            <div class="alert alert-danger alert-dismissible fade show">
+                                <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor"
+                                    stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"
+                                    class="me-2">
+                                    <polygon
+                                        points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2">
+                                    </polygon>
+                                    <line x1="15" y1="9" x2="9" y2="15"></line>
+                                    <line x1="9" y1="9" x2="15" y2="15"></line>
+                                </svg>
+                                <strong>เกิดข้อผิดพลาด!</strong> โปรดตรวจสอบข้อมูลอีกครั้ง
 
+
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="btn-close">
+                                </button>
+                            </div>
+                        @endif
                         <div class="col-4">
                             {{-- @if ($book->img)
                                 <img class="img-fluid" src="{{ asset('storage/images/' . $book->img) }}" alt="">
                             @else --}}
-                            @if (array_key_exists('img', $form))
-                                <img class="img-fluid" src="{{ $form['img']->temporaryUrl() }}" alt=""
+                            @if ($form['img'] != null)
+                                <img class="img-fluid" src="{{ $form['img']->temporaryUrl() ?? $form['img'] }}" alt=""
                                     style="width: 400px;height: 450px;">
                             @else
                                 <img class="img-fluid" src="{{ asset('storage/images/product/2.jpg') }}" alt=""
@@ -46,25 +55,15 @@
                                 </label>
                             </div>
 
-
-
-                            {{-- <div class="input-group mt-3">
-                                <span class="input-group-text bg-white">Upload</span>
-                                <div class="form-file">
-                                    <input type="file" wire:model="form.img" accept="image/*"
-                                        class="form-file-input form-control">
-                                </div>
-                            </div> --}}
-                            {{-- @endif --}}
-
                         </div>
                         <div class="col-8">
                             <div class="basic-form">
                                 <div class="row">
                                     <div class="mb-3 col-md-6">
-                                        <label class="form-label">ชื่อเรื่อง <span class="text-danger">*</span></label>
-                                        <input type="text" wire:model.defer="form.title" class="form-control"
-                                            placeholder="ชื่อเรื่อง">
+                                        <label class="form-label">ชื่อเรื่อง <span class="text-danger">*
+                                            </span></label>
+                                        <input type="text" wire:model.defer="form.title"
+                                            class="form-control form-outline-danger" placeholder="ชื่อเรื่อง">
                                     </div>
                                     <div class="mb-3 col-md-6">
                                         <label class="form-label"> ชื่อหนังสืออื่นๆ</label>
@@ -72,7 +71,8 @@
                                             placeholder="ชื่อหนังสืออื่นๆ">
                                     </div>
                                     <div class="mb-3 col-md-6">
-                                        <label class="form-label">ขื่อผู้แต่ง <span class="text-danger">*</span></label>
+                                        <label class="form-label">ขื่อผู้แต่ง <span class="text-danger">*
+                                            </span></label>
                                         <input type="text" wire:model.defer="form.author" class="form-control"
                                             placeholder="ขื่อผู้แต่ง">
                                     </div>
@@ -87,18 +87,19 @@
                                             class="form-control" placeholder="ผู้แปล">
                                     </div>
                                     <div class="mb-3 col-md-6">
-                                        <label class="form-label">สำนักพิมพ์ </label>
+                                        <label class="form-label">สำนักพิมพ์ <span class="text-danger">*
+
+                                            </span></label>
                                         <input type="text" wire:model.defer="form.publisher" class="form-control"
                                             placeholder="สำนักพิมพ์">
                                     </div>
-                                    <div class="mb-3 col-md-12">
+                                    <div wire:ignore class="mb-3 col-md-12">
                                         <label class="form-label">หัวหนังสือ</label>
 
 
-                                        <select class="form-control" id="category-dropdown" wire:model="tagselect"
-                                            multiple placeholder="เลือกหัวหนังสือ">
+                                        <select class="form-control" id="category-dropdown"
+                                            wire:model.defer="tagselect" multiple placeholder="เลือกหัวหนังสือ">
 
-                                            {{-- <option value="" selected>เลือกหัวหนังสือ</option> --}}
                                             @foreach ($tags as $item)
                                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
                                             @endforeach
@@ -111,46 +112,63 @@
                                             class="form-control" placeholder="จำนวนหน้า">
 
                                     </div>
-                                    <div wire:ignore class="mb-3 col-md-3">
-                                        <label class="form-label">กลุ่มหนังสือ <span
-                                                class="text-danger">*</span></label>
-                                        <select class="me-sm-2 form-control wide" wire:model="form.collection_id"
-                                            id="inlineFormCustomSelect">
-                                            <option value="" selected>ระบุกลุ่มหนังสือ</option>
+                                    <div class="mb-3 col-md-3">
+                                        <label class="form-label">กลุ่มหนังสือ <span class="text-danger">*
+                                                {{-- @error('form.collection_id')
+                                                    {{ $message }}
+                                                @enderror --}}
+                                            </span></label>
+                                        <select wire:ignore class="me-sm-2 form-control wide"
+                                            wire:model.defer="form.collection_id" id="inlineFormCustomSelect">
+                                            <option selected>ระบุกลุ่มหนังสือ</option>
                                             @foreach ($collections as $item)
                                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
-                                    <div wire:ignore class="mb-3 col-md-3">
-                                        <label class="form-label">ตำแหน่งหนังสือ <span
-                                                class="text-danger">*</span></label>
-                                        <select class="me-sm-2 form-control wide" wire:model="form.location_id"
-                                            id="inlineFormCustomSelect">
-                                            <option value="" selected>ระบุตำแหน่งหนังสือ</option>
-                                            <option value="active">เผยแพร่</option>
-                                            <option value="inactive">ไม่เผยแพร่</option>
+                                    <div class="mb-3 col-md-3">
+                                        <label class="form-label">ตำแหน่งหนังสือ <span class="text-danger">*
+                                                {{-- @error('form.location_id')
+                                                    {{ $message }}
+                                                @enderror --}}
+                                            </span></label>
+                                        <select wire:ignore class="me-sm-2 form-control wide"
+                                            wire:model.defer="form.location_id" id="inlineFormCustomSelect">
+                                            <option selected>ระบุตำแหน่งหนังสือ</option>
+                                            @foreach ($locations as $item)
+                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
-                                    <div wire:ignore class="mb-3 col-md-3">
-                                        <label class="form-label">ประเภทชิ้นงาน <span
-                                                class="text-danger">*</span></label>
-                                        <select class="me-sm-2 form-control wide" wire:model="form.material_id"
-                                            id="inlineFormCustomSelect">
-                                            <option value="" selected>ระบุประเภทชิ้นงาน</option>
+                                    <div class="mb-3 col-md-3">
+                                        <label class="form-label">ประเภทชิ้นงาน <span class="text-danger">*
+                                                {{-- @error('form.material_id')
+                                                    {{ $message }}
+                                                @enderror --}}
+                                            </span></label>
+                                        <select wire:ignore class="me-sm-2 form-control wide"
+                                            wire:model.defer="form.material_id" id="inlineFormCustomSelect">
+                                            <option selected>ระบุประเภทชิ้นงาน</option>
                                             @foreach ($materials as $item)
                                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
                                     <div class="mb-3 col-md-3">
-                                        <label class="form-label">เลขเรียกหนังสือ <span
-                                                class="text-danger">*</span></label>
+                                        <label class="form-label">เลขเรียกหนังสือ <span class="text-danger">*
+                                                {{-- @error('form.call_number')
+                                                    {{ $message }}
+                                                @enderror --}}
+                                            </span></label>
                                         <input type="text" wire:model.defer="form.call_number"
                                             class="form-control" placeholder="เลขเรียกหนังสือ">
                                     </div>
                                     <div class="mb-3 col-md-3">
-                                        <label class="form-label">ISBN <span class="text-danger">*</span></label>
+                                        <label class="form-label">ISBN <span class="text-danger">*
+                                                {{-- @error('form.ISBN')
+                                                    {{ $message }}
+                                                @enderror --}}
+                                            </span></label>
                                         <input type="text" wire:model.defer="form.ISBN" class="form-control"
                                             placeholder="ISBN">
                                     </div>
@@ -176,11 +194,11 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn tp-btn-light btn-secondary" onclick="window.location.reload()"
+                    <button type="button" wire:click="cancel" class="btn tp-btn-light btn-secondary"
                         data-bs-dismiss="modal">
                         ยกเลิก
                     </button>
-                    <button wire:click="submit" class="btn light btn-primary">
+                    <button type="submit" data-bs-dismiss="modal" class="btn light btn-primary">
                         {{-- <i class="fi fi-rr-disk me-2" wire:loading.class="d-none"></i>
                         <i class="fi fi-rr-loading d-none" wire:loading.class.remove="d-none"></i> --}}
                         ยืนยัน
@@ -208,9 +226,15 @@
 
         });
         $(function() {
-            $('#toggle-status').bootstrapToggle({
-                on: 'Enabled',
-                off: 'Disabled'
+            $('#status').bootstrapToggle({
+                on: 'เผยแพร่',
+                off: 'ไม่แผยแพร่',
+                offstyle: 'danger',
+                onstyle: 'success',
+                size: 'xs',
+                width: 100,
+
+
             });
         })
     </script>
