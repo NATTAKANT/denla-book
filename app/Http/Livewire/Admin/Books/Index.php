@@ -47,7 +47,7 @@ class Index extends Component
         'publisher' => null,
         'page' => null,
         'synopsis' => null,
-        'status' => 'active',
+        // 'status' => null,
 
     ];
 
@@ -60,7 +60,7 @@ class Index extends Component
         'form.ISBN' => 'required',
         'form.author' => 'required',
         'form.publisher' => 'required',
-        'form.page' => 'numeric',
+        // 'form.page' => 'numeric',
         'form.status' => 'required',
     ];
 
@@ -78,6 +78,7 @@ class Index extends Component
     public function edit($id)
     {
         $book =  Book::find($id);
+
         $this->form = [
             'book_id' => $book->id,
             'title' => $book->title,
@@ -97,48 +98,30 @@ class Index extends Component
             'page' => $book->page,
             'synopsis' => $book->synopsis,
             'status' => $book->status,
-
         ];
-        // $form['book_id'] = $book->id;
-        // $form['title'] = $book->title;
-        // $form['title_another'] = $book->title_another;
-        // $form['material_id'] = $book->material_id;
-        // $form['collection_id'] = $book->collection_id;
-        // $form['location_id'] = $book->location_id;
-        // $form['call_number'] = $book->call_number;
-        // $form['ISBN'] = $book->ISBN;
-        // $form['ISSN'] = $book->ISSN;
-        // $form['DOI'] = $book->DOI;
-        // $form['img'] = $book->img;
-        // $form['author'] = $book->author;
-        // $form['author_co'] = $book->author_co;
-        // $form['responsibility'] = $book->responsibility;
-        // $form['publisher'] = $book->publisher;
-        // $form['page'] = $book->page;
-        // $form['synopsis'] = $book->synopsis;
-        // $form['status'] =  $book->status;
+        $this->tagselect = $book->tags->pluck('id');
+        $this->emit('parameterSet', $this->tagselect);
+
+        $this->form['status'] == 'active'
+            ? $this->form['status'] = $this->form['status'] = true
+            : $this->form['status'] = false;
     }
-
-
 
     public function submit()
     {
 
 
+        dd($this->form['status']);
+
+
         $this->validate();
-
-        $duplicated = BookTag::whereID($this->form['book_id'])
-            ->unique(function ($item) {
-                return $item['book_id'] . $item['tag_id'];
-            })->pluck('id');
-
-        BookTag::whereNotIn('id', $duplicated)->delete();
 
         Book::query()
             ->updateOrCreate(
                 [
                     'id' => $this->form['book_id']
                 ],
+
                 [
                     'title' => $this->form['title'],
                     'title_another' => $this->form['title_another'],
@@ -160,7 +143,20 @@ class Index extends Component
                 ]
             )
             ->book_tags()
+
             ->attach($this->tagselect);
+
+        $book_tag =  BookTag::query();
+        $book_tag->whereBookId($this->form['book_id'])->whereNotIn('tag_id', $this->tagselect)->delete();
+
+  
+        $duplicated =  BookTag::whereBookId($this->form['book_id'])->get()
+            ->unique(function ($item) {
+                return $item['book_id'] . $item['tag_id'];
+            })->pluck('id');
+
+
+        $book_tag->whereNotIn('id', $duplicated)->delete();
 
         $this->reset();
     }

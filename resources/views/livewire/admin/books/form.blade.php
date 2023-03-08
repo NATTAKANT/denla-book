@@ -9,9 +9,12 @@
                 <h5 class="modal-title" id="FormModal">
                     จัดการหนังสือ
                 </h5>
+
                 <input type="checkbox" id="status" wire:model.defer="form.status" />
+
             </div>
             <form wire:submit.prevent="submit" enctype="multipart/form-data">
+
                 <div class="modal-body">
                     <div class="row gy-4">
                         @if ($errors->all())
@@ -36,8 +39,11 @@
                             {{-- @if ($book->img)
                                 <img class="img-fluid" src="{{ asset('storage/images/' . $book->img) }}" alt="">
                             @else --}}
-                            @if ($form['img'] != null)
-                                <img class="img-fluid" src="{{ $form['img']->temporaryUrl() ?? $form['img'] }}" alt=""
+                            @if ($form['img'])
+                                <img class="img-fluid" src="{{ $form['img'] }}" alt=""
+                                    style="width: 400px;height: 450px;">
+                            @elseif(isset($form['img_preview']))
+                                <img class="img-fluid" src="{{ $form['img_preview']->temporaryUrl() }}" alt=""
                                     style="width: 400px;height: 450px;">
                             @else
                                 <img class="img-fluid" src="{{ asset('storage/images/product/2.jpg') }}" alt=""
@@ -45,13 +51,13 @@
                             @endif
 
                             <div class="mx-2 mt-2" wire:ignore>
-                                <input type="file" wire:model="form.img" accept="image/*" id="file-1"
+                                <input type="file" wire:model="form.img_preview" accept="image/*" id="file-1"
                                     class="form-control inputfile inputfile-1" />
                                 <label for="file-1"><svg xmlns="http://www.w3.org/2000/svg" width="20"
                                         height="17" viewBox="0 0 20 17">
                                         <path
                                             d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z" />
-                                    </svg> <span>Choose a file&hellip;</span>
+                                    </svg> <span>เลือกปกหนังสือ&hellip;</span>
                                 </label>
                             </div>
 
@@ -215,27 +221,57 @@
     </div>
 
 </div>
+
 @push('scripts')
     <script>
-        $(document).ready(function() {
-            $('#category-dropdown').select2();
-            $('#category-dropdown').on('change', function(e) {
-                let data = $(this).val();
-                @this.set('tagselect', data);
+        document.addEventListener('livewire:load', function() {
+            Livewire.on('parameterSet', function(paramValue) {
+                $(document).ready(function() {
+                    $('#category-dropdown').
+                    select2().
+                    val(paramValue).
+                    trigger('change').
+                    on('change',
+                        function(e) {
+                            let data = $(this).val();
+                            @this.set('tagselect', data);
+                        });
+                });
+                $(function() {
+                    $('#status')
+                        .bootstrapToggle({
+                            on: 'เผยแพร่',
+                            off: 'ไม่แผยแพร่',
+                            offstyle: 'danger',
+                            onstyle: 'success',
+                            toggle: 'toggle',
+                            size: 'xs',
+                            width: 100,
+                        })
+                })
             });
-
+        });
+        $(document).ready(function() {
+            $('#category-dropdown').
+            select2().
+            val(paramValue).
+            trigger('change').
+            on('change',
+                function(e) {
+                    let data = $(this).val();
+                    @this.set('tagselect', data);
+                });
         });
         $(function() {
-            $('#status').bootstrapToggle({
-                on: 'เผยแพร่',
-                off: 'ไม่แผยแพร่',
-                offstyle: 'danger',
-                onstyle: 'success',
-                size: 'xs',
-                width: 100,
-
-
-            });
+            $('#status')
+                .bootstrapToggle({
+                    on: 'เผยแพร่',
+                    off: 'ไม่แผยแพร่',
+                    offstyle: 'danger',
+                    onstyle: 'success',
+                    size: 'xs',
+                    width: 100,
+                });
         })
     </script>
 @endpush
