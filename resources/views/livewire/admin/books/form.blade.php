@@ -1,6 +1,5 @@
 <!-- Modal -->
 <!-- Start FormModal -->
-
 <div class="modal fade ft-prompt" id="FormModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
     aria-labelledby="FormModalLabel" aria-hidden="true" wire:ignore.self>
     <div class="modal-dialog modal-xl">
@@ -10,10 +9,10 @@
                     จัดการหนังสือ
                 </h5>
 
-                <input type="checkbox" id="status" wire:model.defer="form.status" />
+                <input type="checkbox" id="status" wire:model="form.status" />
 
             </div>
-            <form wire:submit.prevent="submit" enctype="multipart/form-data">
+            <form enctype="multipart/form-data">
 
                 <div class="modal-body">
                     <div class="row gy-4">
@@ -39,11 +38,11 @@
                             {{-- @if ($book->img)
                                 <img class="img-fluid" src="{{ asset('storage/images/' . $book->img) }}" alt="">
                             @else --}}
-                            @if ($form['img'])
-                                <img class="img-fluid" src="{{ $form['img'] }}" alt=""
-                                    style="width: 400px;height: 450px;">
-                            @elseif(isset($form['img_preview']))
-                                <img class="img-fluid" src="{{ $form['img_preview']->temporaryUrl() }}" alt=""
+                            @if (isset($form['img_old']))
+                                <img class="img-fluid" src="{{ asset('storage/book_cover/' . $form['img_old']) }}"
+                                    alt="" style="width: 400px;height: 450px;">
+                            @elseif(isset($form['img_new']))
+                                <img class="img-fluid" src="{{ $form['img_new']->temporaryUrl() }}" alt=""
                                     style="width: 400px;height: 450px;">
                             @else
                                 <img class="img-fluid" src="{{ asset('storage/images/product/2.jpg') }}" alt=""
@@ -51,7 +50,7 @@
                             @endif
 
                             <div class="mx-2 mt-2" wire:ignore>
-                                <input type="file" wire:model="form.img_preview" accept="image/*" id="file-1"
+                                <input type="file" wire:model="form.img_new" accept="image/*" id="file-1"
                                     class="form-control inputfile inputfile-1" />
                                 <label for="file-1"><svg xmlns="http://www.w3.org/2000/svg" width="20"
                                         height="17" viewBox="0 0 20 17">
@@ -204,7 +203,8 @@
                         data-bs-dismiss="modal">
                         ยกเลิก
                     </button>
-                    <button type="submit" data-bs-dismiss="modal" class="btn light btn-primary">
+                    <button type="submit" wire:click="submit" data-bs-dismiss="modal"
+                        class="btn light btn-primary">
                         {{-- <i class="fi fi-rr-disk me-2" wire:loading.class="d-none"></i>
                         <i class="fi fi-rr-loading d-none" wire:loading.class.remove="d-none"></i> --}}
                         ยืนยัน
@@ -225,11 +225,11 @@
 @push('scripts')
     <script>
         document.addEventListener('livewire:load', function() {
-            Livewire.on('parameterSet', function(paramValue) {
+            Livewire.on('parameterSet', function(tags, status) {
                 $(document).ready(function() {
                     $('#category-dropdown').
                     select2().
-                    val(paramValue).
+                    val(tags).
                     trigger('change').
                     on('change',
                         function(e) {
@@ -247,7 +247,16 @@
                             toggle: 'toggle',
                             size: 'xs',
                             width: 100,
+                        }).change(function() {
+                            @this.set('form.status', $(this).prop('checked'));
                         })
+
+                    if (status == 'active') {
+                        $('#status').bootstrapToggle('on')
+                    } else {
+                        $('#status').bootstrapToggle('off')
+                    }
+
                 })
             });
         });

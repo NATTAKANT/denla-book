@@ -40,14 +40,13 @@ class Index extends Component
         'ISBN' => null,
         'ISSN' => null,
         'DOI' => null,
-        'img' => null,
+        'img_new' => null,
         'author' => null,
         'author_co' => null,
         'responsibility' => null,
         'publisher' => null,
         'page' => null,
         'synopsis' => null,
-        // 'status' => null,
 
     ];
 
@@ -90,7 +89,7 @@ class Index extends Component
             'ISBN' => $book->ISBN,
             'ISSN' => $book->ISSN,
             'DOI' => $book->DOI,
-            'img' => $book->img,
+            'img_old' => $book->img,
             'author' => $book->author,
             'author_co' => $book->author_co,
             'responsibility' => $book->responsibility,
@@ -99,20 +98,47 @@ class Index extends Component
             'synopsis' => $book->synopsis,
             'status' => $book->status,
         ];
-        $this->tagselect = $book->tags->pluck('id');
-        $this->emit('parameterSet', $this->tagselect);
 
-        $this->form['status'] == 'active'
-            ? $this->form['status'] = $this->form['status'] = true
-            : $this->form['status'] = false;
+        // dd($this->form['img_old']);
+
+        $this->tagselect = $book->tags->pluck('id');
+        $this->emit('parameterSet', $this->tagselect, $this->form['status']);
+    }
+
+    public function uploadImage($file, $book_id, $status)
+    {
+        $file_name
+            =  'BC_' .
+            $book_id .
+            now()->format('YmdHis') .
+            '.' .
+            $file->extension();
+
+        if ($status) {
+
+            $file->storeAs('public/book_cover', $file_name);
+
+            Book::whereId($book_id)->update([
+
+                'img' => $file_name
+
+            ]);
+        }
     }
 
     public function submit()
     {
 
 
-        dd($this->form['status']);
+        isset($this->form['status'])
+            ?
+            $this->form['status']  = $this->form['status']
+            :
+            $this->form['status'] = true;
 
+        $this->form['status'] == true
+            ? $this->form['status']  = 'active'
+            : $this->form['status'] = 'inactive';
 
         $this->validate();
 
@@ -121,7 +147,6 @@ class Index extends Component
                 [
                     'id' => $this->form['book_id']
                 ],
-
                 [
                     'title' => $this->form['title'],
                     'title_another' => $this->form['title_another'],
@@ -132,7 +157,7 @@ class Index extends Component
                     'ISBN' => $this->form['ISBN'],
                     'ISSN' => $this->form['ISSN'],
                     'DOI' => $this->form['DOI'],
-                    'img' => $this->form['img'],
+                    // 'img' => $this->form['img'],
                     'author' => $this->form['author'],
                     'author_co' => $this->form['author_co'],
                     'responsibility' => $this->form['responsibility'],
@@ -143,13 +168,24 @@ class Index extends Component
                 ]
             )
             ->book_tags()
-
             ->attach($this->tagselect);
 
-        $book_tag =  BookTag::query();
-        $book_tag->whereBookId($this->form['book_id'])->whereNotIn('tag_id', $this->tagselect)->delete();
+        isset($this->form['book_id'])
+            ? $book_upload = $this->form['book_id']
+            :  $book_upload = Book::latest()->first()->id;
 
-  
+        isset($this->form['img_new'])
+            ? $this->uploadImage($this->form['img_new'], $book_upload, true)
+            : $this->uploadImage(null, $book_upload, false);
+
+
+
+        $book_tag =  BookTag::query();
+
+        $this->tagselect != null
+            ? $book_tag->whereBookId($this->form['book_id'])->whereNotIn('tag_id', $this->tagselect)->delete()
+            : false;
+
         $duplicated =  BookTag::whereBookId($this->form['book_id'])->get()
             ->unique(function ($item) {
                 return $item['book_id'] . $item['tag_id'];
